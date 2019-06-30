@@ -1,0 +1,10 @@
+acorde a lo que he visto hasta ahora acerca de chatbots
+se escriben la preguntas o entradas y las correspondientes
+repuestas o salidas
+
+el tema seria como asociar las preguntas con las respuestas
+dado que fuzzywuzzy compara strings y da un indice de match
+he visto algunos ejemplos de chatbots pero sin ver las
+preguntas y respuestas, aun asi no logro descifrar la logica
+mas alla de el if que utilizan para medir el indice de match
+
