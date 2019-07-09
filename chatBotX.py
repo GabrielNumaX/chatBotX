@@ -1,6 +1,8 @@
 #Chatbot in Python
 #using fuzzywuzzy
 
+#see bug at the end of file, line 109
+
 #this FIRST attempt will try to implement Q&A
 #by means of matching list element and key in dict
 
@@ -34,12 +36,45 @@ from fuzzywuzzy import fuzz
 
 import random
 
-'''
-VER PARA USAR ESTE
-Partial Ratio
 
->>> fuzz.partial_ratio("this is a test", "this is a test!")
-    100'''
+def chat():
+
+	chatCount=0
+
+	while yesNo=="y" and chatCount<21:
+
+		inputText=input("\nEnter message: ")
+
+		maxVal=0
+		textOut=""
+
+		for i in inputList:
+			fuzzVal=fuzz.partial_ratio(i,inputText)
+			# print(fuzzVal) #75
+			if fuzzVal>maxVal: #75>0
+				textOut=i      #Imprime String the list
+				maxVal=fuzzVal #0=75 osea maxVal=75
+			else:
+				pass
+
+
+		reply=""
+
+		if textOut in outputDict:
+			reply=random.choice(outputDict[textOut])
+			print("\n"+reply)
+			chatCount+=1
+			
+			if chatCount==21:
+				print("\nSorry I'm lost for words, see you soon.")
+				chatCount+=1
+
+		elif outputDict.get(textOut)==None:
+			print("\nSorry I can't undestand you, try again")
+			chatCount-=1
+
+		else:
+			pass
 
 def noValidation(yesNo):
 	
@@ -50,13 +85,15 @@ def noValidation(yesNo):
 	elif yesNo=="y":
 		print("\nGreat let's chat \nI will reply a limited ammount of times")
 
+		chat()
+
 	else:
 		print("\nSorry wrong letter. Try again.")
 		
 		yesNo=yesNo=input("\nPress y/n: ")[0]
 		yesNo=yesNo.lower()
 
-		val2=noValidation(yesNo)
+		noValidation(yesNo)
 
 
 print("Welcome!!! Do you wanna chat?\n")
@@ -65,44 +102,17 @@ yesNo=input("Press y/n: ")[0]
 
 yesNo=yesNo.lower()
 
-val=noValidation(yesNo) #aca llama a la funcion
+val=noValidation(yesNo) #aca llama a la funcion para validar
 
-chatCount=0
+	
+'''
+BUG: if you press other letter than y or n it will prompt
+an error message and will ask you to enter a leter again
+but if you press y after that it will come out.
 
-while yesNo=="y" and chatCount<21:
+And if you press y in the first attempt it will work
 
-	inputText=input("\nEnter message: ")
-
-	maxVal=0
-	textOut=""
-
-	for i in inputList:
-		fuzzVal=fuzz.partial_ratio(i,inputText)
-		# print(fuzzVal) #75
-		if fuzzVal>maxVal: #75>0
-			textOut=i      #Imprime String the list
-			maxVal=fuzzVal #0=75 osea maxVal=75
-		else:
-			pass
-
-
-	reply=""
-
-	if textOut in outputDict:
-		reply=random.choice(outputDict[textOut])
-		print(reply+"\n")
-		chatCount+=1
-		
-		if chatCount==21:
-			print("\nSorry I'm lost for words, see you soon.")
-			chatCount+=1
-
-	elif outputDict.get(textOut)==None:
-		print("\nSorry I can't undestand you, try again")
-		chatCount-=1
-
-	else:
-		pass
+I really don't know why this is happening'''
 
 
 
