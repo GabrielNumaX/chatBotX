@@ -41,7 +41,7 @@ def chat():
 
 	chatCount=0
 
-	while yesNo=="y" and chatCount<21:
+	while chatCount<10:
 
 		inputText=input("\nEnter message: ")
 
@@ -61,12 +61,13 @@ def chat():
 		reply=""
 
 		if textOut in outputDict:
-			reply=random.choice(outputDict[textOut])
-			print("\n"+reply)
-			chatCount+=1
 			
-			if chatCount==21:
+			if chatCount==9:
 				print("\nSorry I'm lost for words, see you soon.")
+				chatCount+=1
+			else:
+				reply=random.choice(outputDict[textOut])
+				print("\n"+reply)
 				chatCount+=1
 
 		elif outputDict.get(textOut)==None:
